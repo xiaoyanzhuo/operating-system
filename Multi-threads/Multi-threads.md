@@ -1,0 +1,13 @@
+# Multi-threads (Synchronization)
+Multithreading program solving the provider-buyer (or producer-consumer) problem to understand the synchronization
+of threads with two methods, i.e., *mutex, semaphore*. Make use of *pthreads* of Linux. 
+
+## Part1
+Implements 4 providers and 260 buyers, each as a thread. All of them willmanipulate a queue which is accessible by anyone. At each time, either one provider provides an integerrandom number and put it in the buffer, or one buyer remove an integer number which is stored in thebuffer. When the buyer is removing the number from queue, the provider is not allowed to putting newnumber into the queue. Similarly, when the provider is inserting the number into the queue, no buyer isallowed to extracting number from the queue. We need to make sure each and all buyers get a chance tobuy an item, represented by a number. No buyer should make the other one starve. Another requirementfor Part1 is to using parameter N as input while running program, and N+2 threads are created, 2 forprovider and N for buyers, respectively. According to the requirements of this part, semaphore and mutexwill be used to synchronize all the threads to avoid the collision among the providers and buyers, insertor remove number from buffer.
+
+
+## Part2
+There will be one provider and 6 buyers. In this case, semaphore is not needed for provider tosynchronize data since the number of provider thread has been reduced to one. The mutex is still neededto avoid the collision among the providers or buyers.
+
+## BackgroundIn the operating systems, some of actions in a thread are critical section, i.e., the execution of this sectioncannot be interrupted. For example, when two threads want to write the same location of memory at thesame time, the actions of writing process (including several steps, e.g., getting address, writing data)should be in one critical section. Otherwise, the writing collision will happen. Therefore, a lockingmechanism is needed to make sure when one thread is processing on the memory that accessible bymultiple threads is locked, i.e., no other thread can make change of that location of memory. Mutexprovide the ability to lock the critical section.
+In some other cases, it is allowed multiple threads to process on different locations of memory at thesame time. Therefore, it is necessary to control the processing of thread based on the current status, i.e.,if there is still available resource can be accessed by the thread. In other word, the number of threads thatcan process simultaneously should be controlled according to the among of available resources.Semaphore provides the mechanism to tackle this issue.
